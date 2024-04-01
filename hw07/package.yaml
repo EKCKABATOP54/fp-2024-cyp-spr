@@ -35,7 +35,8 @@ ghc-options:
 
 library:
   source-dirs: src
-
+  dependencies:
+    - containers
 executables:
   hw07-exe:
     main:                Main.hs
@@ -46,6 +47,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - hw07
+    - containers
 
 tests:
   hw07-test:
@@ -57,3 +59,6 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - hw07
+    - containers
+    - tasty
+    - tasty-hunit
