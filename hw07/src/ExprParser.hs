@@ -14,7 +14,11 @@ module ExprParser where
     -- The result may be a string (for identifiers), an integer (for numbers), 
     -- some algebraic data type for more complex langugaes (for example, Expr for expressions), 
     -- or even a function. 
+
+
+
     newtype Parser a = Parser { runParser :: String -> Maybe (String, a)}
+
 
     -- This abstraction of a parser is a Functor, which allows us to transform the parser's results. 
     instance Functor Parser where 

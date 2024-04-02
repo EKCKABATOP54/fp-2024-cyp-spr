@@ -7,6 +7,7 @@ import Test.Tasty.HUnit
 import StateDemo
 import qualified Data.Map.Strict as M
 import Control.Exception (assert)
+import ExprParser
 
 
 
@@ -28,8 +29,21 @@ evalTests = testGroup "Eval tests"
   , testCase "Pow test 0^0" $ assertEqual "" (execState (eval (Binop Pow (Var "x") (Var "y"))) $ M.fromList [("x", 0), ("y", 0)]) (Right 1)
   ]
 
+
+
+parserTests :: TestTree
+parserTests = testGroup "Parser tests" [
+  testCase "Integer" $ assertEqual "" (Just $ ("", Const 123)) (runParser parseExpr "123")
+  , testCase "Integer with leading zeros" $ assertEqual "" (Just $ ("", Const 123)) (runParser parseExpr "00123")
+  , testCase "Negative integer" $ assertEqual "" (Nothing) (runParser parseExpr "-123")
+  , testCase "Sqrt test 1" $ assertEqual "" (Just $ ("", SquareRoot $ Const 123)) (runParser parseExpr "sqrt 123")
+  , testCase "Sqrt test 2" $ assertEqual "" (Just $ ("", SquareRoot $ Var "xyz")) (runParser parseExpr "sqrt xyz")
+  , testCase "Binop test 1" $ assertEqual "" (Just $ ("", Binop Plus (Const 123) (Binop Mult (Const 45) (Const 6)))) (runParser parseExpr "+ 123 * 45 6")
+  , testCase "Binop test 2" $ assertEqual "" (Just $ ("", Binop Plus (Binop Mult (Const 123) (Const 45)) (Const 6))) (runParser parseExpr "+ * 123 45 6")
+  ]
+
 exprTests :: TestTree
-exprTests = testGroup "Expr tests" [evalTests]
+exprTests = testGroup "Expr tests" [evalTests, parserTests]
 
 main :: IO()
 main = defaultMain exprTests
