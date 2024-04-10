@@ -30,3 +30,9 @@ module Expr.Expr where
             (SquareRoot e1)  -> printf "sqrt(%s)" (show e1)
             (Binop op e1 e2) -> printf "(%s %s %s)" (show e1) (show op) (show e2)
             (Var v)         -> printf "%s" (show v)
+  
+  printPrefix :: (Show a) => Expr a -> String
+  printPrefix (Binop op l r) = printf "%s %s %s" (show op) (printPrefix l) (printPrefix r)
+  printPrefix (SquareRoot e) = printf "sqrt %s" (printPrefix e)
+  printPrefix (Const n) = show n
+  printPrefix (Var s) = s

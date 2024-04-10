@@ -1,6 +1,6 @@
 {-# LANGUAGE InstanceSigs #-}
-module ExprParser where
-    import Expr
+module Expr.ExprParser where
+    import Expr.Expr
     import Data.Char ( isAlpha, isAlphaNum, isDigit, digitToInt, isSpace )
     import Control.Applicative (Alternative, empty, (<|>), many, some)
 
