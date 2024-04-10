@@ -21,6 +21,7 @@ description:         Please see the README on GitHub at <https://github.com/kaji
 
 dependencies:
 - base >= 4.7 && < 5
+- containers
 
 ghc-options:
 - -Wall
@@ -45,6 +46,7 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
+    - containers
     - PBT
     - optparse-applicative
     - filepath
@@ -59,6 +61,7 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
+    - containers
     - PBT
     - hedgehog
     - tasty
