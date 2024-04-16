@@ -5,6 +5,7 @@ import Expr.Expr
 import Expr.Error
 import qualified Data.Map.Strict as M
 
+emptyBinding = M.empty
 
 eval :: (Floating a, Ord a) => Expr a -> State (M.Map String a) (Either (Error a) a)
 eval expr = case expr of 
